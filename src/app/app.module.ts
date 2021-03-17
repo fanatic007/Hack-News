@@ -4,10 +4,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChallengesService } from './services/challenges.service';
+import { AddChallengeComponent } from './components/add-challenge/add-challenge.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddChallengeComponent
   ],
   imports: [
     BrowserModule,
