@@ -13,5 +13,5 @@ export const DUMMY_CHALLENGE = {
   upvotes: 2,
   tags: [ "tech","algo"],
   _id: "YQNqsnwiBHK358gB",
-  creationDate: new Date()
+  creationDate: new Date(new Date("June 25 1995 00:00"))
 }

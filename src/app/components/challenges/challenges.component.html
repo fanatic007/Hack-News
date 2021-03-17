@@ -1,1 +1,18 @@
-<p>challenges works!</p>
+<div>
+  <label for="sortBy">SortBy</label>
+  <select id="sortBy" [(ngModel)]="sortBy" (ngModelChange)="sortChallenges()">
+    <option value="creationDate">Creation Date</option>
+    <option value="upvotes">Upvotes</option>
+  </select>
+  <div *ngFor="let challenge of challenges; let i=index">
+    <h2>{{challenge.title}}</h2>
+    <hr>
+    <h4>{{challenge.description}}</h4>
+    <div>
+      <span>{{challenge.creationDate}}</span>
+      <span>{{challenge.upvotes}}</span>
+      <button (click)="upvoteChallenge(challenge._id)">Upvote</button>
+    </div>
+    <br>  
+  </div>
+</div>

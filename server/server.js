@@ -31,7 +31,7 @@ app.get(ENDPOINT, (req, res) => {
 
 //Add Challenges
 app.post(ENDPOINT, (req, res) => {log(req.body);
-  challenges.insert(req.body,(err, result) => {
+  challenges.insert({...req.body, creationDate:new Date()},(err, result) => {
     if(err){log(err);
       res.send({status:'failure'});
     }
