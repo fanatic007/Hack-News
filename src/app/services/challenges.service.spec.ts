@@ -1,7 +1,7 @@
 import { ChallengesService } from './challenges.service';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { IChallenge } from '../models/challenge';
+import { IChallenge, DUMMY_CHALLENGE } from '../models/challenge';
 import { from, Observable } from 'rxjs';
 
 describe('ChallengesService', () => {
@@ -29,4 +29,32 @@ describe('ChallengesService', () => {
     expect(challengeService['upvoteChallenge']).toBeTruthy();
   });
 
+  it('GET request should respond with an Observable of array of IChallenge', () => {
+    challengeService.getAllChallenges().subscribe(challenges => {
+      expect(('title' in challenges[0]) && ('description' in challenges[0]) && ('tags' in challenges[0]) && ('tags' in challenges[0]) && ('_id' in challenges[0]) ).toBeTruthy(1);
+    });
+    const req = httpMock.expectOne(ENDPOINT);
+    req.flush([DUMMY_CHALLENGE]);
+    expect(req.request.method).toEqual('GET');
+  });
+
+  it('POST request should create a challenge', () => {
+    challengeService.addChallenge(DUMMY_CHALLENGE).subscribe(response => {
+      expect(response.status).toBeTruthy(1);
+      expect(response.status).toEqual('success');
+    });
+    const req = httpMock.expectOne(ENDPOINT);
+    req.flush({ status: "success" });
+    expect(req.request.method).toEqual('POST');
+  });
+
+  it('PUT request should update a challenge', () => {
+    challengeService.upvoteChallenge("id").subscribe(response => {
+      expect(response.status).toBeTruthy(1);
+      expect(response.status).toEqual('success');
+    });
+    const req = httpMock.expectOne(ENDPOINT);
+    req.flush({ status: "success" });
+    expect(req.request.method).toEqual('PUT');
+  });
 });

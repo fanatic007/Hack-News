@@ -36,8 +36,7 @@ app.post(ENDPOINT, (req, res) => {
 
 //Upvote Challenge (upvoted object to be sent)
 app.put(ENDPOINT,(req, res) => {
-  var {_id:id} = req.body;
-  challenges.update({_id:id},req.body,{},(err, result) => {
+  challenges.update(req.body, {$inc:{upvotes:1}} ,{},(err, result) => {
     if(err){log(err);
       res.send({status:'failure'});
     }
