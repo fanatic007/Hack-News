@@ -6,11 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ChallengesService } from './services/challenges.service';
 import { AddChallengeComponent } from './components/add-challenge/add-challenge.component';
+import { ChallengesComponent } from './components/challenges/challenges.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddChallengeComponent
+    AddChallengeComponent,
+    ChallengesComponent
   ],
   imports: [
     BrowserModule,

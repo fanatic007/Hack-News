@@ -35,7 +35,7 @@ describe('AddChallengeComponent', () => {
     expect(component['formGroup'].get('title').value).toEqual('');
     expect(component['formGroup'].get('description').value).toEqual('');
     expect(component['formGroup'].get('tags').value).toEqual([]);
-    expect(typeof component['addChallenge']).toBeTruthy(Function);
+    expect(typeof component['addChallenge']).toEqual("function");
   });
 
   it('should have form to create challenge', () => {
