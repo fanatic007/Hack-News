@@ -8,7 +8,7 @@ import { IChallenge } from '../models/challenge';
   providedIn: 'root'
 })
 export class ChallengesService {
-  private readonly endpoint="localhost:3000/challenges/";
+  private readonly endpoint="http://localhost:3000/challenges/";
   constructor(private httpClient: HttpClient) { }
 
   getAllChallenges():Observable<IChallenge[]>{

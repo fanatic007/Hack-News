@@ -1,1 +1,18 @@
-<p>add-challenge works!</p>
+<div>
+  <form [formGroup]="formGroup" (ngSubmit)="addChallenge()">
+    <label for="title">Title</label>
+    <div>
+      <input id="title" formControlName="title" type="text">
+    </div>
+    <label for="description">Description</label>
+    <div>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+    <label>Tags</label>
+    <div>
+      <input type="text">
+      <span *ngFor="let tag of formGroup.get('tags').value">{{tag}}</span>
+    </div>
+    <button type="submit" [disabled]="formGroup.invalid">Add Challange</button>
+  </form>
+</div>

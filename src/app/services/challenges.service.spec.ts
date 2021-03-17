@@ -1,13 +1,12 @@
 import { ChallengesService } from './challenges.service';
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { IChallenge, DUMMY_CHALLENGE } from '../models/challenge';
-import { from, Observable } from 'rxjs';
+import { DUMMY_CHALLENGE } from '../models/challenge';
 
 describe('ChallengesService', () => {
   let challengeService: ChallengesService;
   let httpMock: HttpTestingController;
-  const ENDPOINT = "localhost:3000/challenges/";
+  const ENDPOINT = "http://localhost:3000/challenges/";
 
   beforeEach(() => {
     TestBed.configureTestingModule({

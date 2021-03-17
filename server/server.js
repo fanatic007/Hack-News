@@ -1,15 +1,22 @@
-express = require('express');
-bodyParser = require('body-parser');
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 3000;
+const bodyParser = require('body-parser');
 Datastore = require('nedb');
 log=console.log;
 
-const ENDPOINT = '/challenges/';
-const app = express();
-const port = 3000;
-const challenges = new Datastore({ filename: 'challenges.db', autoload: true });
 
+app.use(cors());
 app.use(bodyParser.json());
 
+app.listen(port, function () {
+  console.log(`CORS-enabled web server listening on port ${port}`)
+})
+
+const challenges = new Datastore({ filename: 'challenges.db', autoload: true });
+
+const ENDPOINT = '/challenges/';
 //Get Challenges ordered by optional param
 app.get(ENDPOINT, (req, res) => {
   challenges.find({},(err,result)=>{
@@ -23,7 +30,7 @@ app.get(ENDPOINT, (req, res) => {
 });
 
 //Add Challenges
-app.post(ENDPOINT, (req, res) => {
+app.post(ENDPOINT, (req, res) => {log(req.body);
   challenges.insert(req.body,(err, result) => {
     if(err){log(err);
       res.send({status:'failure'});
@@ -45,7 +52,3 @@ app.put(ENDPOINT,(req, res) => {
     }
   });
 });
-
-app.listen(port, () => {
-  console.log(`Hack News server started and listening at http://localhost:${port}`)
-})
