@@ -1,4 +1,4 @@
-import { HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { LoginService } from './login.service';
@@ -10,7 +10,8 @@ describe('LoginService', () => {
   
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpTestingController]
+      imports: [HttpClientTestingModule],
+      providers: [LoginService]
     });
     loginService = TestBed.inject(LoginService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -24,8 +25,8 @@ describe('LoginService', () => {
 
   it('should make a POST request for login', () => {
     loginService['login']('123').subscribe(response => {
-      expect(response.status).toBeTruthy(1);
-      expect(response.status).toEqual('success');
+      expect(response['token']).toBeTruthy(1);
+      expect(response['status']).toEqual('success');
     });
     const req = httpMock.expectOne(LOGIN_ENDPOINT);
     req.flush({ status: "success" , token:'abcd'});
