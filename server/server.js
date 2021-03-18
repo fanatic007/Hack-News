@@ -54,6 +54,6 @@ app.put(ENDPOINT,(req, res) => {
 });
 
 //Upvote Challenge (upvoted object to be sent)
-app.put('/login/',(req, res) => {
+app.post('/login/',(req, res) => {
   res.send({token:'abcd'});
 });
