@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { ChallengesService } from './services/challenges.service';
 import { AddChallengeComponent } from './components/add-challenge/add-challenge.component';
 import { ChallengesComponent } from './components/challenges/challenges.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddChallengeComponent,
-    ChallengesComponent
+    ChallengesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
