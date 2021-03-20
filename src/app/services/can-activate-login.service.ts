@@ -10,7 +10,7 @@ export class CanActivateLogin implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let canActivate = window.localStorage.getItem('token') == null;
-    canActivate && this.router.navigate(['login']);
+    !canActivate && this.router.navigate(['login']);
     return canActivate;
   }
 }
