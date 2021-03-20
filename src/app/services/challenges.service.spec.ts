@@ -48,7 +48,7 @@ describe('ChallengesService', () => {
   });
 
   it('PUT request should update a challenge', () => {
-    challengeService.upvoteChallenge("id").subscribe(response => {
+    challengeService.upvoteChallenge("id",true).subscribe(response => {
       expect(response.status).toBeTruthy(1);
       expect(response.status).toEqual('success');
     });

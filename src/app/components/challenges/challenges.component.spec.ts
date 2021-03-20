@@ -28,6 +28,7 @@ describe('ChallengesComponent', () => {
   it('should create component and have relevant properties', () => {
     expect(component).toBeTruthy();
     expect(component['sortBy']).toBeTruthy();
+    expect(component['ascending']).toBeTruthy();
     expect(component['challenges']).toBeTruthy();
     expect(typeof component['getAllChallenges']).toEqual("function");
     expect(typeof component['upvoteChallenge']).toEqual("function");
@@ -41,27 +42,27 @@ describe('ChallengesComponent', () => {
   it('should show Challenge', () => {
     expect(fixture.nativeElement.querySelectorAll('h2').length).toBe(1);
     expect(fixture.nativeElement.querySelectorAll('h4').length).toBe(1);
-    expect(fixture.nativeElement.querySelectorAll('span').length ).toBe(2);
-    expect(fixture.nativeElement.querySelectorAll('button').length ).toBe(1);
+    expect(fixture.nativeElement.querySelectorAll('span').length ).toBe(4);
+    expect(fixture.nativeElement.querySelectorAll('input[type="checkbox"]').length ).toBe(2);
     expect(fixture.nativeElement.querySelectorAll('select').length ).toBe(1);
   });
 
-  // it('should refetch data after clicking upvote', () => {
-  //   challengesServiceSpy.upvoteChallenge.and.returnValue(from([{status:"success"}]));
-  //   component['challenges'][0].title = 'test';
-  //   component['upvoteChallenge'](DUMMY_CHALLENGE._id);
-  //   fixture.detectChanges();
-  //   expect(component['challenges'][0].title).not.toEqual('test');
-  // });
+  it('should refetch data after clicking upvote', () => {
+    challengesServiceSpy.upvoteChallenge.and.returnValue(from([{status:"success"}]));
+    component['challenges'][0].title = 'test';
+    component['upvoteChallenge'](DUMMY_CHALLENGE._id,true);
+    fixture.detectChanges();
+    expect(challengesServiceSpy.getAllChallenges).toHaveBeenCalled();
+  });
 
   it('should sort the challenges', () => {
     const DUMMY_CHALLENGE2 = {...DUMMY_CHALLENGE};
-    DUMMY_CHALLENGE2.upvotes = 1;
     DUMMY_CHALLENGE2.creationDate = new Date("June 25 1994 00:00");
     component['challenges'] = [DUMMY_CHALLENGE, DUMMY_CHALLENGE2 ];
     component['sortBy'] = 'upvotes';
     component['sortChallenges']();
-    expect(component['challenges'][0].upvotes).toEqual(1);
+    expect(component['challenges'][0].upvoters.length).toEqual(1);
+    component['ascending'] = false;
     component['sortBy'] = 'creationDate';
     component['sortChallenges']();
     expect(component['challenges'][0].creationDate).toEqual(new Date("June 25 1994 00:00"));

@@ -1,18 +1,27 @@
 <div>
-  <label for="sortBy">SortBy</label>
-  <select id="sortBy" [(ngModel)]="sortBy" (ngModelChange)="sortChallenges()">
-    <option value="creationDate">Creation Date</option>
-    <option value="upvotes">Upvotes</option>
-  </select>
+  <app-add-challenge *ngIf="role==='admin'"></app-add-challenge>
+  <div *ngIf="challenges.length">
+    <label for="sortBy">SortBy</label>
+    <select id="sortBy" [(ngModel)]="sortBy" (ngModelChange)="sortChallenges()">
+      <option value="creationDate">Creation Date</option>
+      <option value="upvotes">Upvotes</option>
+    </select>
+    <label for="sortBy">Ascending</label>
+    <input type="checkbox" [(ngModel)]="ascending" (ngModelChange)="sortChallenges()">
+  </div>
+  <h1>Challenges</h1>
   <div *ngFor="let challenge of challenges; let i=index">
     <h2>{{challenge.title}}</h2>
-    <hr>
+    <span *ngFor="let tag of challenge.tags">{{tag}}</span>
     <h4>{{challenge.description}}</h4>
     <div>
-      <span>{{challenge.creationDate}}</span>
-      <span>{{challenge.upvotes}}</span>
-      <button (click)="upvoteChallenge(challenge._id)">Upvote</button>
+      <span>{{challenge.creationDate | date:'medium'}}</span>
+      <label>Upvotes</label>
+      <span>{{challenge.upvoters.length}}</span>
+      <label>Upvote</label>
+      <input type="checkbox" (click)="upvoteChallenge(challenge._id, $event.target.checked)" [ngModel]="challenge.upvoters.includes(employeeId)">
     </div>
-    <br>  
+    <hr>
+    <br>
   </div>
 </div>

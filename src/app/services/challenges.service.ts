@@ -19,7 +19,7 @@ export class ChallengesService {
     return this.httpClient.post(this.endpoint,challenge,{observe:"body", responseType:"json"});
   }
 
-  upvoteChallenge(id:string):Observable<any>{
-    return this.httpClient.put(this.endpoint,{_id:id},{observe:"body", responseType:"json"});
+  upvoteChallenge(id:string,upvote: boolean):Observable<any>{
+    return this.httpClient.put(this.endpoint,{_id:id, upvote:upvote},{observe:"body", responseType:"json"});
   }
 }

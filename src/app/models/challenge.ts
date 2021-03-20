@@ -2,7 +2,7 @@ export interface IChallenge{
   title: String;
   description: String;
   tags :String[];
-  upvotes: number;
+  upvoters: String[];
   _id?:String;
   creationDate: Date;
 }
@@ -10,7 +10,7 @@ export interface IChallenge{
 export const DUMMY_CHALLENGE = {
   title: "Sudoku",
   description: "Create a Sudoku solver.",
-  upvotes: 2,
+  upvoters: ["HN1"],
   tags: [ "tech","algo"],
   _id: "YQNqsnwiBHK358gB",
   creationDate: new Date(new Date("June 25 1995 00:00"))
