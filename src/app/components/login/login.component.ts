@@ -18,9 +18,12 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.loginService.login(this.formGroup.get('employeeId').value).subscribe(
+    let employeeId = this.formGroup.get('employeeId').value;
+    this.loginService.login(employeeId).subscribe(
       res=>{
+        window.localStorage.setItem('employeeId',employeeId);
         window.localStorage.setItem('token',res['token']);
+        window.localStorage.setItem('role',res['role']);
         this.router.navigate(['home']);
       },
       err => {console.log(err);      
@@ -28,5 +31,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
 }

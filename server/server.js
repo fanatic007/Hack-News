@@ -30,8 +30,8 @@ app.get(ENDPOINT, (req, res) => {
 });
 
 //Add Challenges
-app.post(ENDPOINT, (req, res) => {log(req.body);
-  challenges.insert({...req.body, creationDate:new Date()},(err, result) => {
+app.post(ENDPOINT, (req, res) => {
+  challenges.insert({...req.body, creationDate:new Date(), upvoters:[]},(err, result) => {
     if(err){log(err);
       res.send({status:'failure'});
     }
@@ -43,7 +43,8 @@ app.post(ENDPOINT, (req, res) => {log(req.body);
 
 //Upvote Challenge (upvoted object to be sent)
 app.put(ENDPOINT,(req, res) => {
-  challenges.update(req.body, {$inc:{upvotes:1}} ,{},(err, result) => {
+  let update = req.body.upvote?{$addToSet: {upvoters: req.headers['employeeid']} }:{$pull: {upvoters: req.headers['employeeid'] } };
+  challenges.update({_id: req.body._id}, update ,{},(err, result) => {
     if(err){log(err);
       res.send({status:'failure'});
     }
@@ -55,5 +56,5 @@ app.put(ENDPOINT,(req, res) => {
 
 //Upvote Challenge (upvoted object to be sent)
 app.post('/login/',(req, res) => {
-  res.send({token:'abcd'});
+  res.send({token:'abcd', role:'admin'});
 });
