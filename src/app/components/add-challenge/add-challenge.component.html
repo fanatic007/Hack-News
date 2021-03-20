@@ -1,5 +1,6 @@
+<h1>Add Challenge</h1>
 <div>
-  <form [formGroup]="formGroup" (ngSubmit)="addChallenge()">
+  <form [formGroup]="formGroup" (keydown.enter)="$event.preventDefault()" (ngSubmit)="addChallenge()">
     <label for="title">Title</label>
     <div>
       <input id="title" formControlName="title" type="text">
@@ -10,7 +11,7 @@
     </div>
     <label>Tags</label>
     <div>
-      <input type="text">
+      <input placeholder="Hit enter to" type="text" (keyup.enter)="addTag($event)">
       <span *ngFor="let tag of formGroup.get('tags').value">{{tag}}</span>
     </div>
     <button type="submit" [disabled]="formGroup.invalid">Add Challange</button>

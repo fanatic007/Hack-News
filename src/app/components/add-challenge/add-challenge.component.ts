@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChallengesService } from '../../services/challenges.service';
 
@@ -9,6 +9,7 @@ import { ChallengesService } from '../../services/challenges.service';
 })
 export class AddChallengeComponent implements OnInit {
   formGroup: FormGroup;
+  @Output() challengeAdded = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private challengesService: ChallengesService) {
     this.formGroup = formBuilder.group({
@@ -24,18 +25,24 @@ export class AddChallengeComponent implements OnInit {
   addChallenge(){
     if(confirm(`Add ${this.formGroup.get('title').value} Challenge?`)){
       this.formGroup.disable();
-      this.challengesService.addChallenge({upvotes:0, ...this.formGroup.value }).subscribe(res=>{
+      this.challengesService.addChallenge(this.formGroup.value).subscribe(res=>{
         res.status==='success' && this.resetForm();
         alert("Challenge Added");
+        this.challengeAdded.emit();
       },
       err=>{ console.log(err);
       });
     }
-  }
+  }  
 
   resetForm(){
     this.formGroup.get('title').setValue('');
     this.formGroup.get('description').setValue('');
     this.formGroup.get('tags').setValue([]);
+  }
+
+  addTag(event){
+    this.formGroup.get('tags').value.push(event.target.value);
+    event.target.value = "";
   }
 }
