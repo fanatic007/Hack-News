@@ -1,1 +1,7 @@
-<p>paginator works!</p>
+<div *ngIf="dataSize">
+  <label>Page Size</label>
+  <select [(ngModel)]="currentPageSize" (ngModelChange)="pageSizeChanged($event)">
+    <option *ngFor="let pageSize of pageSizes" [value]="pageSize">{{pageSize}}</option>
+  </select>
+  <button *ngFor="let page of pages" (click)="pageChanged(+$event.target.innerHTMl)">{{page}}</button>
+</div>
