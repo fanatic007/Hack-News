@@ -11,4 +11,10 @@ export class LoginService {
   login(employeeID:string){
     return this.httpClient.post(this.loginEndpoint,{employeeID:employeeID},{observe:'body'});
   }
+
+  clearSession(){
+    window.localStorage.removeItem('employeeId');
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('role');
+  }
 }

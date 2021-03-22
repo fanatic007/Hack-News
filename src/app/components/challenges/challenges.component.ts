@@ -37,7 +37,8 @@ export class ChallengesComponent implements OnInit {
         this.challenges=[...res];
         this.sortChallenges();
       },
-      err => {console.log(err);      
+      err => {console.log(err);
+        if(err.status==401) return
         alert('Problem fetching challenges');
       }
     );

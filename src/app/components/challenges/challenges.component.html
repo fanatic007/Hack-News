@@ -1,7 +1,7 @@
 <div>
   <app-add-challenge *ngIf="role==='admin'"(challengeAdded)="getAllChallenges()"></app-add-challenge>
   <h1>Challenges</h1>
-  <div *ngIf="currentPageView">
+  <div *ngIf="currentPageView.length>0">
     <label for="sortBy">Sort By</label>
     <select id="sortBy" [(ngModel)]="sortBy" (ngModelChange)="sortChallenges()">
       <option value="creationDate">Creation Date</option>
@@ -10,7 +10,7 @@
     <label for="ascending">Ascending
       <fa-icon [icon]="faSortUpSolid" size="lg" [styles]="ascending?{ 'color':'orange' }:{ 'color':'lightgray' }"></fa-icon>
       <input id="ascending"type="checkbox" [(ngModel)]="ascending" (ngModelChange)="sortChallenges()" [hidden]="true">
-    </label>        
+    </label>
     <app-paginator [pageSizes]="pageSizes" [currentPageSize]="currentPageSize" [dataSize]="challenges.length" (onPageChanged)="pageChanged($event)" (onPageSizeChanged)="pageSizeChanged($event)"></app-paginator>
   </div>
   <br>
@@ -23,7 +23,7 @@
           <span>{{tag}}</span>
         </div>
       </summary>      
-      <h4>{{challenge.description}}</h4>  
+      <p>{{challenge.description}}</p>  
     </details>
     <div>
       <label>        
