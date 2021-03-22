@@ -9,13 +9,15 @@ import { ChallengesComponent } from './components/challenges/challenges.componen
 import { LoginComponent } from './components/login/login.component';
 import { HttpInterceptorService } from '../app/services/http-interceptor.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PaginatorComponent } from './components/common/paginator/paginator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddChallengeComponent,
     ChallengesComponent,
-    LoginComponent
+    LoginComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
