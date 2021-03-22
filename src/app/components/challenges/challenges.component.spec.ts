@@ -42,7 +42,7 @@ describe('ChallengesComponent', () => {
   it('should show Challenge', () => {
     expect(fixture.nativeElement.querySelectorAll('h2').length).toBe(1);
     expect(fixture.nativeElement.querySelectorAll('h4').length).toBe(1);
-    expect(fixture.nativeElement.querySelectorAll('span').length ).toBe(4);
+    expect(fixture.nativeElement.querySelectorAll('span').length ).toBe(3);
     expect(fixture.nativeElement.querySelectorAll('input[type="checkbox"]').length ).toBe(2);
     expect(fixture.nativeElement.querySelectorAll('select').length ).toBe(1);
   });

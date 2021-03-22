@@ -9,26 +9,30 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let router: Router;
-  let loginService: jasmine.SpyObj<LoginService>
+  let loginService: jasmine.SpyObj<LoginService>;
 
   beforeEach(async(() => {
-    loginService = jasmine.createSpyObj('LoginService',['login']);
-    loginService.login.and.returnValue(from([{token:'abcd'}]));
+    loginService = jasmine.createSpyObj(LoginService,['login']);
+    loginService.login.and.returnValue(from([{token:'abcd'}]))
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports:[RouterTestingModule.withRoutes([])],
-      providers:[{provide:LoginService, useValue:loginService }]
+      providers:[{
+        provide: LoginService, useValue: loginService
+      }]
     })
     .compileComponents();
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    router = TestBed.inject(Router);
   }));
 
   it('should create component and have relevant properties and methods', () => {
     expect(component).toBeTruthy();
     expect(component['formGroup']).toBeTruthy();
     expect(typeof component['login']).toEqual("function");
+    expect(component).toBeTruthy();
   });
 
   it('should have login form', () => {
@@ -38,12 +42,11 @@ describe('LoginComponent', () => {
   });
 
   it('should add token to localStorage on successful login', () => {
-    router = TestBed.inject(Router);
+    component['login']();
     expect(window.localStorage.getItem('token')).toBeTruthy();
   });
 
   it('should change route on successful login', () => {
-    router = TestBed.inject(Router);
     const navigateSpy = spyOn(router, 'navigate');
     component['login']();
     expect(navigateSpy).toHaveBeenCalledWith(['home']);

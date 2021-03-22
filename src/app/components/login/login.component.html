@@ -1,7 +1,8 @@
 <div>
   <form [formGroup]="formGroup" (ngSubmit)="login()">
-    <label>Employee ID</label>
-    <input formControlName="employeeId" id="employeeId" type="text">
-    <button type="submit">Login</button>
+    <label for="employeeId">Employee ID</label>
+    <input id="employeeId" formControlName="employeeId" id="employeeId" type="text">
+    <br>
+    <button [disabled]="formGroup.invalid" type="submit" class="float-right">Login</button>
   </form>
 </div>

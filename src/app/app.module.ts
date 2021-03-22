@@ -8,6 +8,7 @@ import { AddChallengeComponent } from './components/add-challenge/add-challenge.
 import { ChallengesComponent } from './components/challenges/challenges.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpInterceptorService } from '../app/services/http-interceptor.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpInterceptorService } from '../app/services/http-interceptor.service
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IChallenge } from '../../models/challenge';
 import { ChallengesService } from 'src/app/services/challenges.service';
+import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp as faThumbsUpRegular } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: 'app-challenges',
@@ -13,6 +15,8 @@ export class ChallengesComponent implements OnInit {
   employeeId: string = '';
   role: string = 'user';
   ascending: boolean = true;
+  faThumbsUpSolid = faThumbsUpSolid;
+  faThumbsUpRegular = faThumbsUpRegular;
 
   constructor(private challengesService: ChallengesService) { }
 
@@ -45,7 +49,7 @@ export class ChallengesComponent implements OnInit {
     );
   }
 
-  sortChallenges(){console.log(this.ascending);
+  sortChallenges(){
     let dateComparator = (a,b)=> this.ascending? new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime() : new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime();
     let upvotesComparator = (a,b)=> this.ascending? b.upvoters.length - a.upvoters.length : a.upvoters.length - b.upvoters.length;
     this.challenges = this.challenges.sort(this.sortBy==='upvotes'?upvotesComparator:dateComparator);

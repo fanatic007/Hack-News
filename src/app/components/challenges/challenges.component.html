@@ -1,27 +1,36 @@
 <div>
-  <app-add-challenge *ngIf="role==='admin'"></app-add-challenge>
+  <app-add-challenge *ngIf="role==='admin'"(challengeAdded)="getAllChallenges()"></app-add-challenge>
+  <br>
+  <h1>Challenges</h1>
   <div *ngIf="challenges.length">
-    <label for="sortBy">SortBy</label>
+    <label for="sortBy">Sort By</label>
     <select id="sortBy" [(ngModel)]="sortBy" (ngModelChange)="sortChallenges()">
       <option value="creationDate">Creation Date</option>
       <option value="upvotes">Upvotes</option>
     </select>
-    <label for="sortBy">Ascending</label>
-    <input type="checkbox" [(ngModel)]="ascending" (ngModelChange)="sortChallenges()">
+    <label for="ascending">Ascending</label>
+    <input id="ascending"type="checkbox" [(ngModel)]="ascending" (ngModelChange)="sortChallenges()">
   </div>
-  <h1>Challenges</h1>
-  <div *ngFor="let challenge of challenges; let i=index">
-    <h2>{{challenge.title}}</h2>
-    <span *ngFor="let tag of challenge.tags">{{tag}}</span>
-    <h4>{{challenge.description}}</h4>
+  <br>
+  <hr>
+  <div *ngFor="let challenge of challenges; let i=index" class="challenge">
+    <details>
+      <summary>
+        <h2>{{challenge.title}}</h2>
+        <div *ngFor="let tag of challenge.tags" class="tag float-right">
+          <span>{{tag}}</span>
+        </div>
+      </summary>      
+      <h4>{{challenge.description}}</h4>  
+    </details>
     <div>
-      <span>{{challenge.creationDate | date:'medium'}}</span>
-      <label>Upvotes</label>
-      <span>{{challenge.upvoters.length}}</span>
-      <label>Upvote</label>
-      <input type="checkbox" (click)="upvoteChallenge(challenge._id, $event.target.checked)" [ngModel]="challenge.upvoters.includes(employeeId)">
+      <label>        
+        <fa-icon [icon]="challenge.upvoters.includes(employeeId)?faThumbsUpSolid:faThumbsUpRegular" size="lg" [styles]="{ 'color': 'orange' }"></fa-icon>
+        <input type="checkbox" (click)="upvoteChallenge(challenge._id, $event.target.checked)" [ngModel]="challenge.upvoters.includes(employeeId)" [hidden]="true">
+      </label>
+      <a [title]="challenge.upvoters.join('\n')">{{challenge.upvoters.length}}</a>      
+      <span class="color-gray float-right">{{challenge.creationDate | date:'medium'}}</span>
     </div>
     <hr>
-    <br>
   </div>
 </div>

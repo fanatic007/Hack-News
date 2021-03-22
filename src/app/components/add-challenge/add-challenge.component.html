@@ -1,19 +1,26 @@
-<h1>Add Challenge</h1>
-<div>
-  <form [formGroup]="formGroup" (keydown.enter)="$event.preventDefault()" (ngSubmit)="addChallenge()">
-    <label for="title">Title</label>
-    <div>
-      <input id="title" formControlName="title" type="text">
-    </div>
-    <label for="description">Description</label>
-    <div>
-      <textarea id="description" formControlName="description"></textarea>
-    </div>
-    <label>Tags</label>
-    <div>
-      <input placeholder="Hit enter to" type="text" (keyup.enter)="addTag($event)">
-      <span *ngFor="let tag of formGroup.get('tags').value">{{tag}}</span>
-    </div>
-    <button type="submit" [disabled]="formGroup.invalid">Add Challange</button>
-  </form>
-</div>
+<details>
+  <summary><h1>Add Challenge</h1></summary>
+  <div>
+    <form [formGroup]="formGroup" (keydown.enter)="$event.preventDefault()" (ngSubmit)="addChallenge()">
+      <label for="title">Title <span style="color: orange;">&nbsp;*</span> </label>
+      <div>
+        <input id="title" formControlName="title" type="text">
+      </div>
+      <label>Tags<span style="color: orange;">&nbsp;*</span></label>
+      <div *ngFor="let tag of formGroup.get('tags').value; let i=index" class="tag">
+        <span>{{tag}}</span><i class="close" title="Delete Tag" (click)="formGroup.get('tags').value.splice(i,1)"></i>
+      </div>
+      <div>
+        <input placeholder="Hit enter to add" type="text" (keyup.enter)="addTag($event)">
+      </div>
+      <label for="description">Description<span style="color: orange;">&nbsp;*</span></label>
+      <div>
+        <textarea id="description" formControlName="description"></textarea>
+      </div>
+      <div>
+        <button type="submit" [disabled]="formGroup.invalid" class="float-right">Add Challange</button>
+      </div>
+    </form>
+  </div>  
+</details>
+<br>

@@ -1,1 +1,108 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  font-family: Verdana;
+  font-weight: 100;
+  font-size: 14px;
+  max-width: 1024px;
+  margin: auto;
+  background-color: rgba($color: #000000, $alpha: 0.01);
+  padding: 0px 10px;
+  min-width: 400px;
+}
+h1,h2,h4{
+  font-weight: 100;
+  display: inline-block;
+}
+h1{
+  text-transform: uppercase;
+}
+input[type=text], textarea{
+  width: -webkit-fill-available;
+  padding: 5px;
+  font-size: 1.2em;
+  border: solid lightgray 1px;
+  border-radius: 2px;
+}
+
+input[type=text]:focus, textarea:focus{
+  outline: solid orange 2px;
+}
+
+select{
+  font-size: 1em;
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 1px;
+  background-color: orange;
+  color: white;
+  margin: 5px;
+  padding: 0px 10px;
+  -webkit-appearance: none ;
+  cursor: pointer;
+}
+
+button{
+  color: white;
+  background-color: orange;
+  border: none;
+  height: 30px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button:disabled{
+  background-color: lightgray;
+  cursor: default;
+}
+
+button:active{
+  outline: solid orange 1px;
+}
+hr{
+  border-color: lightgray;
+  border-width: 0.5px;
+}
+
+summary{
+  outline: none;
+  cursor: pointer;
+}
+summary::marker,
+summary::-webkit-details-marker {
+  color: orange;
+}
+
+.tag{
+  display: inline;
+  color: orange;
+  background-color: gray;
+  padding: 3px;
+  font-size: 0.9em;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+.float-right{
+  float: right;
+}
+
+.color-gray{
+  color: grey;
+}
+
+.close::before {
+  content: 'x'; // here is your X(cross) sign.
+  color: orange;
+  background-color: white;
+  font-weight: 500;
+  font-family: Arial;
+  padding: 2px 5px;
+  font-size: 10px;
+  font-style: initial;
+  border-radius: 40px;
+  margin: 1px 1px 1px 5px;
+  font-family: "Arial";
+  display: inline-block;
+  cursor: pointer;
+}
