@@ -1,0 +1,12 @@
+.paginator{
+  display: inline-block;
+  &__page{
+    width: 30px;
+    margin: 0px 0px 0px 5px;
+  }
+  &__page-selected{
+    color: orange;
+    background-color: white;
+    border:solid orange 1px;
+  }
+}

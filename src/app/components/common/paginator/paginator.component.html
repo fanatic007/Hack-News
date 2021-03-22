@@ -1,7 +1,8 @@
-<div *ngIf="dataSize">
+<div *ngIf="dataSize" class="paginator float-right">
   <label>Page Size</label>
   <select [(ngModel)]="currentPageSize" (ngModelChange)="pageSizeChanged($event)">
     <option *ngFor="let pageSize of pageSizes" [value]="pageSize">{{pageSize}}</option>
   </select>
-  <button *ngFor="let page of pages" (click)="pageChanged(+$event.target.innerHTMl)">{{page}}</button>
+  <label>Page</label>
+  <button *ngFor="let page of pages;let i = index" (click)="pageChanged(i+1)"class="paginator__page" [ngClass]="{'paginator__page-selected':page==currentPage}">{{page}}</button>
 </div>

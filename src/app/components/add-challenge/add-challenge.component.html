@@ -8,7 +8,8 @@
       </div>
       <label>Tags<span style="color: orange;">&nbsp;*</span></label>
       <div *ngFor="let tag of formGroup.get('tags').value; let i=index" class="tag">
-        <span>{{tag}}</span><i class="close" title="Delete Tag" (click)="formGroup.get('tags').value.splice(i,1)"></i>
+        <span>{{tag}}</span>
+        <fa-icon [title]="'Delete '+tag" [icon]="faTimesCircle" size="s" [styles]="{ 'color':'white' }" (click)="formGroup.get('tags').value.splice(i,1)"></fa-icon>
       </div>
       <div>
         <input placeholder="Hit enter to add" type="text" (keyup.enter)="addTag($event)">

@@ -1,19 +1,21 @@
 <div>
   <app-add-challenge *ngIf="role==='admin'"(challengeAdded)="getAllChallenges()"></app-add-challenge>
-  <br>
   <h1>Challenges</h1>
-  <div *ngIf="challenges.length">
+  <div *ngIf="currentPageView">
     <label for="sortBy">Sort By</label>
     <select id="sortBy" [(ngModel)]="sortBy" (ngModelChange)="sortChallenges()">
       <option value="creationDate">Creation Date</option>
       <option value="upvotes">Upvotes</option>
     </select>
-    <label for="ascending">Ascending</label>
-    <input id="ascending"type="checkbox" [(ngModel)]="ascending" (ngModelChange)="sortChallenges()">
+    <label for="ascending">Ascending
+      <fa-icon [icon]="faSortUpSolid" size="lg" [styles]="ascending?{ 'color':'orange' }:{ 'color':'lightgray' }"></fa-icon>
+      <input id="ascending"type="checkbox" [(ngModel)]="ascending" (ngModelChange)="sortChallenges()" [hidden]="true">
+    </label>        
+    <app-paginator [pageSizes]="pageSizes" [currentPageSize]="currentPageSize" [dataSize]="challenges.length" (onPageChanged)="pageChanged($event)" (onPageSizeChanged)="pageSizeChanged($event)"></app-paginator>
   </div>
   <br>
   <hr>
-  <div *ngFor="let challenge of challenges; let i=index" class="challenge">
+  <div *ngFor="let challenge of currentPageView; let i=index" class="challenge">
     <details>
       <summary>
         <h2>{{challenge.title}}</h2>
@@ -27,8 +29,8 @@
       <label>        
         <fa-icon [icon]="challenge.upvoters.includes(employeeId)?faThumbsUpSolid:faThumbsUpRegular" size="lg" [styles]="{ 'color': 'orange' }"></fa-icon>
         <input type="checkbox" (click)="upvoteChallenge(challenge._id, $event.target.checked)" [ngModel]="challenge.upvoters.includes(employeeId)" [hidden]="true">
+        <span [title]="challenge.upvoters.join('\n')">{{challenge.upvoters.length}}</span>
       </label>
-      <a [title]="challenge.upvoters.join('\n')">{{challenge.upvoters.length}}</a>      
       <span class="color-gray float-right">{{challenge.creationDate | date:'medium'}}</span>
     </div>
     <hr>

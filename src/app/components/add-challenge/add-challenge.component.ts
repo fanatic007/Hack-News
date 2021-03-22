@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChallengesService } from '../../services/challenges.service';
+import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: 'app-add-challenge',
@@ -10,6 +11,7 @@ import { ChallengesService } from '../../services/challenges.service';
 export class AddChallengeComponent implements OnInit {
   formGroup: FormGroup;
   @Output() challengeAdded = new EventEmitter();
+  faTimesCircle = faTimesCircle;
 
   constructor(private formBuilder: FormBuilder, private challengesService: ChallengesService) {
     this.formGroup = formBuilder.group({
@@ -27,10 +29,12 @@ export class AddChallengeComponent implements OnInit {
       this.formGroup.disable();
       this.challengesService.addChallenge(this.formGroup.value).subscribe(res=>{
         res.status==='success' && this.resetForm();
-        alert("Challenge Added");
         this.challengeAdded.emit();
+        this.formGroup.enable();
+        alert("Challenge Added");
       },
       err=>{ console.log(err);
+        this.formGroup.enable();
       });
     }
   }  

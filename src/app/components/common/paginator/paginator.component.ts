@@ -7,12 +7,13 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 })
 export class PaginatorComponent implements OnInit, OnChanges {
   pages=[];
-  currentPageSize:number=1;
-  totalPages:number=1;
+  totalPages:number=2;
   @Input() pageSizes = [];
   @Input() currentPage = 1;
   @Input() dataSize = 1;
+  @Input() currentPageSize:number=10;
   @Output() onPageChanged = new EventEmitter<number>();
+  @Output() onPageSizeChanged = new EventEmitter<number>();
 
   constructor() { }
 
@@ -38,6 +39,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
 
   pageSizeChanged(pageSize:number){
     this.currentPageSize = pageSize;
+    this.onPageSizeChanged.emit(this.currentPageSize);
     this.resetPages();
   }
 

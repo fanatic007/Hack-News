@@ -22,6 +22,7 @@ input[type=text], textarea{
   font-size: 1.2em;
   border: solid lightgray 1px;
   border-radius: 2px;
+  margin: 5px 0px;
 }
 
 input[type=text]:focus, textarea:focus{
@@ -30,7 +31,7 @@ input[type=text]:focus, textarea:focus{
 
 select{
   font-size: 1em;
-  width: 100px;
+  max-width: 120px;
   height: 30px;
   border: none;
   border-radius: 1px;
@@ -64,6 +65,11 @@ hr{
   border-width: 0.5px;
 }
 
+fa-icon{
+  cursor: pointer;
+  margin: 0px 5px;
+}
+
 summary{
   outline: none;
   cursor: pointer;
@@ -80,7 +86,7 @@ summary::-webkit-details-marker {
   padding: 3px;
   font-size: 0.9em;
   border-radius: 3px;
-  margin: 5px;
+  margin: 0px 0px 0px 5px;
 }
 
 .float-right{

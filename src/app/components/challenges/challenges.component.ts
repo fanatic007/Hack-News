@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IChallenge } from '../../models/challenge';
 import { ChallengesService } from 'src/app/services/challenges.service';
-import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp as faThumbsUpSolid, faArrowDown as faSortUpSolid } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp as faThumbsUpRegular } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
@@ -15,8 +15,13 @@ export class ChallengesComponent implements OnInit {
   employeeId: string = '';
   role: string = 'user';
   ascending: boolean = true;
+  currentPage: any = 1;
+  currentPageSize: any = 5;
+  pageSizes = [5,10,20];
+  currentPageView = [];
   faThumbsUpSolid = faThumbsUpSolid;
   faThumbsUpRegular = faThumbsUpRegular;
+  faSortUpSolid = faSortUpSolid;
 
   constructor(private challengesService: ChallengesService) { }
 
@@ -50,8 +55,25 @@ export class ChallengesComponent implements OnInit {
   }
 
   sortChallenges(){
-    let dateComparator = (a,b)=> this.ascending? new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime() : new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime();
-    let upvotesComparator = (a,b)=> this.ascending? b.upvoters.length - a.upvoters.length : a.upvoters.length - b.upvoters.length;
+    let dateComparator = (a,b)=> !this.ascending? new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime() : new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime();
+    let upvotesComparator = (a,b)=> !this.ascending? b.upvoters.length - a.upvoters.length : a.upvoters.length - b.upvoters.length;
     this.challenges = this.challenges.sort(this.sortBy==='upvotes'?upvotesComparator:dateComparator);
+    this.updateCurrentPageView();
+  }
+
+  pageChanged(page:number){
+    this.currentPage = page || 1;
+    this.updateCurrentPageView();
+  }
+
+  pageSizeChanged(pageSize:number){
+    this.currentPageSize = pageSize;
+    this.currentPage = 1;
+    this.updateCurrentPageView();
+  }
+
+  updateCurrentPageView() {
+    let start = (this.currentPage-1)*this.currentPageSize;
+    this.currentPageView =  this.challenges.slice(start,start + this.currentPageSize);
   }
 }
